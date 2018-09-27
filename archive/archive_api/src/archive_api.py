@@ -162,6 +162,7 @@ def default_error_handler(error):
         'label': getattr(error, 'name', 'Internal Server Error'),
         'type': 'Error',
     }
+    logger.warn(error)
     if error_response['httpStatus'] != 500:
         if hasattr(error, 'data'):
             error_response['description'] = ', '.join(error.data.get('errors', {}).values())

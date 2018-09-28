@@ -21,7 +21,7 @@ from ingests import (
 )
 
 from bags import (
-    bag_request
+    fetch_bag
 )
 
 app = Flask(__name__)
@@ -142,7 +142,7 @@ class BagResource(Resource):
     def get(self, id):
         """Get the bag associated with an id"""
         try:
-            result = bag_request(
+            result = fetch_bag(
                 dynamodb_resource=app.config['DYNAMODB_RESOURCE'],
                 table_name=app.config['BAG_VHS_TABLE_NAME'],
                 s3_client=app.config['S3_CLIENT'],

@@ -5,10 +5,15 @@ import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.{FunSpec, Inside, Matchers}
 import uk.ac.wellcome.json.JsonUtil._
 import uk.ac.wellcome.messaging.test.fixtures.SNS
-import uk.ac.wellcome.platform.archive.archivist.fixtures.{Archivist => ArchivistFixture}
+import uk.ac.wellcome.platform.archive.archivist.fixtures.{
+  Archivist => ArchivistFixture
+}
 import uk.ac.wellcome.platform.archive.archivist.generators.BagUploaderConfigGenerator
 import uk.ac.wellcome.platform.archive.archivist.models.IngestRequestContextGenerators
-import uk.ac.wellcome.platform.archive.common.progress.models.{Progress, ProgressUpdate}
+import uk.ac.wellcome.platform.archive.common.progress.models.{
+  Progress,
+  ProgressUpdate
+}
 import uk.ac.wellcome.test.fixtures.Akka
 
 class ArchiveZipFileFlowTest
@@ -17,7 +22,7 @@ class ArchiveZipFileFlowTest
     with ScalaFutures
     with ArchivistFixture
     with IngestRequestContextGenerators
-      with BagUploaderConfigGenerator
+    with BagUploaderConfigGenerator
     with Akka
     with SNS
     with Inside {

@@ -1,7 +1,7 @@
 # -*- encoding: utf-8
 
-from .bag_request import bag_request
+from .fetch_bag import fetch_bag
 
 __all__ = [
-    'bag_request',
+    'fetch_bag',
 ]

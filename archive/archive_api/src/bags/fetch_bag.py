@@ -3,7 +3,7 @@
 import json
 
 
-def bag_request(dynamodb_resource, table_name, s3_client, bucket_name, id):
+def fetch_bag(dynamodb_resource, table_name, s3_client, bucket_name, id):
     """
     Fetch the contents of a Bag.
     """

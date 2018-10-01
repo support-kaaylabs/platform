@@ -14,7 +14,11 @@ import uk.ac.wellcome.platform.archive.common.fixtures.AkkaS3
 import uk.ac.wellcome.platform.archive.common.modules._
 import uk.ac.wellcome.platform.archive.common.progress.fixtures.ProgressMonitorFixture
 import uk.ac.wellcome.platform.archive.common.progress.models
-import uk.ac.wellcome.platform.archive.common.progress.models.{ProgressEvent, ProgressUpdate, Progress => ProgressModel}
+import uk.ac.wellcome.platform.archive.common.progress.models.{
+  ProgressEvent,
+  ProgressUpdate,
+  Progress => ProgressModel
+}
 import uk.ac.wellcome.platform.archive.common.progress.modules.ProgressMonitorModule
 import uk.ac.wellcome.platform.archive.common.progress.monitor.ProgressMonitor
 import uk.ac.wellcome.platform.archive.progress_http.models.HttpServerConfig
@@ -28,7 +32,7 @@ import scala.concurrent.duration._
 import scala.util.Random
 
 trait ProgressHttpFixture
-  extends AkkaS3
+    extends AkkaS3
     with LocalDynamoDb
     with ScalaFutures
     with ProgressMonitorFixture
@@ -92,7 +96,8 @@ trait ProgressHttpFixture
     testWith(progress)
   }
 
-  def withConfiguredApp[R](testWith: TestWith[(Table, String, AkkaHttpApp), R]) = {
+  def withConfiguredApp[R](
+    testWith: TestWith[(Table, String, AkkaHttpApp), R]) = {
 
     val host = "localhost"
     val port = randomPort
@@ -100,18 +105,19 @@ trait ProgressHttpFixture
 
     val serverConfig = HttpServerConfig(host, port, baseUrl)
 
-    withSpecifiedLocalDynamoDbTable(createProgressMonitorTable) {
-      table =>
-        withApp(table, serverConfig) { progressHttp =>
-          testWith((table, baseUrl, progressHttp))
-        }
+    withSpecifiedLocalDynamoDbTable(createProgressMonitorTable) { table =>
+      withApp(table, serverConfig) { progressHttp =>
+        testWith((table, baseUrl, progressHttp))
+      }
     }
   }
 
-  def getT[T](entity: HttpEntity)(implicit decoder: Decoder[T], materializer: Materializer) = {
+  def getT[T](entity: HttpEntity)(implicit decoder: Decoder[T],
+                                  materializer: Materializer) = {
     val timeout = 300.millis
 
-    val stringBody = entity.toStrict(timeout)
+    val stringBody = entity
+      .toStrict(timeout)
       .map(_.data)
       .map(_.utf8String)
       .value
@@ -126,6 +132,8 @@ trait ProgressHttpFixture
       implicit val system = actorSystem
 
       val request = Http().singleRequest(r)
-      whenReady(request) { result => testWith(result) }
+      whenReady(request) { result =>
+        testWith(result)
+      }
     }
 }
